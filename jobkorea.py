@@ -18,6 +18,7 @@ def get_pages(url):
 
     page = context.new_page()
     page.goto(url)
+    page.screenshot(path="jobkorea_page.png")
 
     # 페이지 수 가져오기
     page.wait_for_selector('nav[aria-label="pagination"]')
