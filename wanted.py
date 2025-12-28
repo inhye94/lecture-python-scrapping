@@ -1,0 +1,73 @@
+# 원티드 홈부터 시작
+# playwright로 검색 > 포지션 > 3초 멈춤 > 스크롤 3번 내린 뒤 > 카드 긁어오기
+
+from playwright.sync_api import sync_playwright
+
+URL = "https://www.wanted.co.kr"
+
+jobs = []
+
+with sync_playwright() as p:
+  # 브라우저 설정
+  browser = p.chromium.launch(headless=True)
+  context = browser.new_context(
+    user_agent=(
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+      "AppleWebKit/537.36 (KHTML, like Gecko) "
+      "Chrome/120.0.0.0 Safari/537.36"
+    )
+  )
+
+  page = context.new_page()
+  page.goto(URL)
+
+  # 광고 닫기
+  # ad_iframe = page.frame_locator('div.ab-iam-root')
+
+  # if ad_iframe:
+  #   ad_iframe.locator('button.close').click()
+
+  # 검색창 대기
+  page.wait_for_selector('button[aria-label="검색"]')
+
+  # 검색어 입력
+  search_button = page.locator('button[aria-label="검색"]')
+  search_button.click()
+
+  search_input = page.locator('input[type="search"]')
+  search_input.fill("프론트엔드")
+  page.keyboard.press("Enter")
+
+
+  # 포지션 페이지 대기
+  page.wait_for_selector('a#search_tab_position')
+
+  position_tab = page.locator('a#search_tab_position')
+  position_tab.click()
+
+  page.wait_for_timeout(3000)  # 3초 대기
+
+  # 스크롤 3번 내리기
+  for _ in range(3):
+    page.mouse.wheel(0, 300)
+    page.wait_for_timeout(1500)
+
+  # 카드 요소들 가져오기
+  cards = page.locator('a[data-position-list-type="card"]')
+
+  for i in range(cards.count()):
+    card = cards.nth(i)
+
+    url = card.get_attribute("href")
+    company = card.get_attribute("data-company-name")
+    title = card.locator('strong').inner_text()
+    
+    jobs.append({
+      "title": title,
+      "company": company,
+      "url": f"{URL}{url}"
+    })
+
+  print(jobs)
+  
+  browser.close()
