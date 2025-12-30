@@ -3,6 +3,7 @@
 
 from playwright.sync_api import sync_playwright
 import time
+from bs4 import BeautifulSoup
 
 URL = "https://www.wanted.co.kr"
 
@@ -50,19 +51,21 @@ with sync_playwright() as p:
 
 
   # 카드 요소들 가져오기
-  cards = page.locator('a[data-position-list-type="card"]')
+  content = page.content()
+  soup = BeautifulSoup(content, "html.parser")
+  cards = soup.find_all("a", {"data-position-list-type": "card"})
 
-  for i in range(cards.count()):
-    card = cards.nth(i)
-
-    url = card.get_attribute("href")
-    company = card.get_attribute("data-company-name")
-    title = card.locator('strong').inner_text()
+  for card in cards:
+    link = f"{URL}{card['href']}"
+    company = card["data-company-name"]
+    title = card.find('strong').text
+    reward = card.find('span', class_="JobCard_reward__oCSIQ").text
     
     jobs.append({
       "title": title,
       "company": company,
-      "url": f"{URL}{url}"
+      "link": link,
+      "reward": reward
     })
 
   print(jobs)
