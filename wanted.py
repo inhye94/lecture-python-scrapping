@@ -2,6 +2,7 @@
 # playwright로 검색 > 포지션 > 3초 멈춤 > 스크롤 3번 내린 뒤 > 카드 긁어오기
 
 from playwright.sync_api import sync_playwright
+import time
 
 URL = "https://www.wanted.co.kr"
 
@@ -31,26 +32,22 @@ with sync_playwright() as p:
   page.wait_for_selector('button[aria-label="검색"]')
 
   # 검색어 입력
-  search_button = page.locator('button[aria-label="검색"]')
-  search_button.click()
-
-  search_input = page.locator('input[type="search"]')
-  search_input.fill("프론트엔드")
+  page.locator('button[aria-label="검색"]').click()
+  page.get_by_placeholder("검색어를 입력해 주세요.").fill("프론트엔드")
   page.keyboard.press("Enter")
 
 
   # 포지션 페이지 대기
-  page.wait_for_selector('a#search_tab_position')
-
-  position_tab = page.locator('a#search_tab_position')
-  position_tab.click()
-
-  page.wait_for_timeout(3000)  # 3초 대기
+  time.sleep(3)
+  page.click('a#search_tab_position')
+  time.sleep(3)
 
   # 스크롤 3번 내리기
   for _ in range(3):
-    page.mouse.wheel(0, 300)
-    page.wait_for_timeout(1500)
+    # page.mouse.wheel(0, 300)
+    page.keyboard.press("End")
+    time.sleep(2)
+
 
   # 카드 요소들 가져오기
   cards = page.locator('a[data-position-list-type="card"]')
