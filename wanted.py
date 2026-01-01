@@ -84,7 +84,7 @@ def scrape_wanted(keyword):
 
 # CSV로 저장
 def save_to_csv(datas, filename):
-  file = open(f"{filename}.csv", "w", encoding="utf-8")
+  file = open(f"scraped_datas/{filename}.csv", "w", encoding="utf-8")
   writer = csv.writer(file)
   writer.writerow(datas[0].keys())
 

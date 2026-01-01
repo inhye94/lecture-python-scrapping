@@ -108,7 +108,7 @@ class WantedScraper:
   # CSV로 저장
   @staticmethod
   def save_to_csv(datas, filename):
-    file = open(f"wanted_{filename}_jobs.csv", "w", encoding="utf-8")
+    file = open(f"scraped_datas/wanted_{filename}_jobs.csv", "w", encoding="utf-8")
     writer = csv.DictWriter(file, fieldnames=datas[0].keys())
     writer.writeheader()
     writer.writerows(datas)
