@@ -114,12 +114,12 @@ class WantedScraper:
     writer.writerows(datas)
 
 # 키워드로 스크래핑 레츠고
-keywords = ["react", "nextjs", "flutter"]
-scraper = WantedScraper()
-scraper.open()
+# keywords = ["react", "nextjs", "flutter"]
+# scraper = WantedScraper()
+# scraper.open()
 
-for keyword in keywords:
-  datas = scraper.scrape(keyword)
-  scraper.save_to_csv(datas, keyword)
+# for keyword in keywords:
+#   datas = scraper.scrape(keyword)
+#   scraper.save_to_csv(datas, keyword)
 
-scraper.close()
+# scraper.close()
