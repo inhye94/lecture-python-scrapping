@@ -11,6 +11,10 @@ def home():
 def hello():
     return "<h1>Hey there!</h1>"
 
+@app.route("/search")
+def search():
+    return render_template("search.html")
+
 app.run(debug=True) # http://127.0.0.1:5000/에서 브라우저 실행됨. 터미널에서 cmd+c하면 서버 꺼짐
 
 # # 키워드로 스크래핑 레츠고
