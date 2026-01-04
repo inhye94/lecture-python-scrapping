@@ -1,5 +1,5 @@
 from wanted_class import WantedScraper
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask("JobScrapper")
 
@@ -13,7 +13,8 @@ def hello():
 
 @app.route("/search")
 def search():
-    return render_template("search.html")
+    keyword = request.args.get('keyword')
+    return render_template("search.html", keyword = keyword)
 
 app.run(debug=True) # http://127.0.0.1:5000/에서 브라우저 실행됨. 터미널에서 cmd+c하면 서버 꺼짐
 
