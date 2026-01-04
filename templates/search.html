@@ -7,5 +7,20 @@
   </head>
   <body>
     <h1>Search Results for {{keyword}}:</h1>
+
+    <ul>
+      {% for item in list %}
+      <li>
+        <article>
+          <header>
+            <h2>{{item.title}}</h2>
+          </header>
+          <a href="{{item.link}}" target="_blank">링크</a>
+          <strong>{{item.company}}</strong>
+          <span>{{item.reward}}</span>
+        </article>
+      </li>
+      {% endfor %}
+    </ul>
   </body>
 </html>
