@@ -3,24 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Job Scraper - Home</title>
+    <title>Job Scraper - {{page}} | {{keyword}}</title>
   </head>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+  />
   <body>
-    <h1>Search Results for {{keyword}}:</h1>
+    <main class="container">
+      <h1>Search Results for {{keyword}}:</h1>
 
-    <ul>
-      {% for item in list %}
-      <li>
-        <article>
-          <header>
-            <h2>{{item.title}}</h2>
-          </header>
-          <a href="{{item.link}}" target="_blank">링크</a>
-          <strong>{{item.company}}</strong>
-          <span>{{item.reward}}</span>
-        </article>
-      </li>
-      {% endfor %}
-    </ul>
+      <table class="striped">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Company</th>
+            <th>Reward</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in list %}
+          <tr>
+            <td>{{item.title}}</td>
+            <td>{{item.company}}</td>
+            <td>{{item.reward}}</td>
+            <td><a href="{{item.link}}" target="_blank">링크</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </main>
   </body>
 </html>

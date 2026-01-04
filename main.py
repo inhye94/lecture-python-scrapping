@@ -5,7 +5,7 @@ app = Flask("JobScrapper")
 
 @app.route("/")
 def home():
-  return render_template("home.html", name="inhye")
+  return render_template("home.html", page="Home", name="inhye")
 
 @app.route("/hello")
 def hello():
@@ -23,7 +23,7 @@ def search():
     scraper.close()
 
     # 데이터 렌더링
-    return render_template("search.html", keyword = keyword, list = datas)
+    return render_template("search.html", page="Search", keyword = keyword, list = datas)
 
 app.run(debug=True) # http://127.0.0.1:5000/에서 브라우저 실행됨. 터미널에서 cmd+c하면 서버 꺼짐
 

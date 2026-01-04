@@ -3,14 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Job Scraper - Home</title>
+    <title>Job Scraper - {{page}}</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
   </head>
   <body>
-    <h1>Hello! My name is {{name}}</h1>
-    <a href="/hello">go to hello</a>
-    <form action="/search">
-      <input type="text" name="keyword" placeholder="Write keyword" />
-      <button>Search</button>
-    </form>
+    <main class="container">
+      <h1>Hello! My name is {{name}}</h1>
+      <a href="/hello">go to hello</a>
+      <form action="/search">
+        <label for="keyword">keyword</label>
+        <input
+          type="text"
+          id="keyword"
+          name="keyword"
+          placeholder="Write keyword"
+        />
+        <button>Search</button>
+      </form>
+    </main>
   </body>
 </html>
